@@ -1,20 +1,24 @@
-from ctypes.wintypes import MSG,HWND, WPARAM, LPARAM,UINT,RGB
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+@author: lochen88
+@site: https://github.com/lochen88/MBPython3
+@qq: 1191826896
+@description: 基于miniblink封装 普通版不支持多线程调用
+"""
+
 from module.wkeStruct import *
 from module.winConst import *
-import win32gui, win32ui
+import win32gui
 import threading
 import os
 # import requests
-user32 = windll.user32
-gdi32 = windll.gdi32
-imm32= windll.imm32
 init_path=os.getcwd()
 m_oldProc=0
 
-def decorator_fun(func):
-    def my_func(*arg):
-        func(*arg)
-    return my_func
+
+
 def method(prototype):
     class MethodDescriptor(object):
         __slots__ = ['func', 'bound_funcs']
@@ -57,11 +61,11 @@ class MBPython3(threading.Thread):
         # self.set_debug_config(webview,'showDevTools',init_path+'/front_end/inspector.html')
 
         self.move_to_center(webview)
-        self.set_window_title(webview, 'test')
+        self.set_window_title(webview, 'QQ-1191826896-TEST')
         self.show_window(webview, True)
 
-        self.set_storage_path(webview,f'{init_path}/LocalStorage')
-        self.set_cookie_path(webview,init_path)
+        # self.set_storage_path(webview,f'{init_path}/LocalStorage')
+        # self.set_cookie_path(webview,init_path)
         # self.test_proxy(1,'117.70.39.105','4276',webview=webview)
         self.test_all_callback(webview)
         
@@ -492,11 +496,9 @@ class MBPython3(threading.Thread):
 
     #绑定py函数给js调用
     def js_bind_func(self,func_name,arg_count=1,param=0):
-
+        bind_func=getattr(self,func_name)
         func_name=func_name.encode()
-        if func_name==b'mouseMsg':
-             self.mb.wkeJsBindFunction(c_char_p(func_name),self.mouseMsg,param,arg_count)
-
+        self.mb.wkeJsBindFunction(c_char_p(func_name),bind_func,param,arg_count)
     #获取js调用绑定函数时传过来的参数值转换
     def get_js_args_val(self,es,arg_count):
         val_ls=[None]*arg_count
@@ -1321,15 +1323,17 @@ class MBPython3(threading.Thread):
 
 if __name__ == '__main__':
 
-    window = MBPython3()
-    window.start()
+    # window = MBPython3()
+    # window.start()
 
-    # window.mb=window.mb_init(f'{init_path}/node.dll')
-    # webview=window.create_window(0,360,480)
-    # window.wkeOnWindowDestroy(webview,0)
-    # window.load_url(webview,'https://www.baidu.com/')
-    # window.wkeOnCreateView(webview,0)
-    # window.show_window(webview,True)
+    window = MBPython3()
+    window.mb=window.mb_init(f'{init_path}/module/node.dll')
+    webview=window.create_window(0,360,480)
+    window.wkeOnWindowDestroy(webview,0)
+    window.load_url(webview,'https://www.baidu.com/')
+    window.wkeOnCreateView(webview,0)
+    window.show_window(webview,True)
+    window.message_loop()
     
 
 
