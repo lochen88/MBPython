@@ -1,4 +1,44 @@
-from ctypes import c_int,c_short,c_ushort,c_ulong,c_long,c_longlong,c_ulonglong,c_float,c_char,c_char_p,c_wchar_p,c_bool,c_void_p,c_size_t,Structure,byref,POINTER,windll,cdll,CFUNCTYPE,WINFUNCTYPE
+from ctypes import (
+    c_int,
+    c_short,
+    c_ushort,
+    c_ulong,
+    c_long,
+    c_longlong,
+    c_ulonglong,
+    c_float,
+    c_char,
+    c_char_p,
+    c_wchar_p,
+    c_bool,
+    c_void_p,
+    c_size_t,
+    Structure,
+    byref,
+    POINTER,
+    create_string_buffer,
+    sizeof,
+    windll,
+    cdll,
+    CFUNCTYPE,
+    WINFUNCTYPE,
+    )
+from ctypes.wintypes import (
+    DWORD,
+    HWND,
+    INT,
+    LONG,
+    LPARAM,
+    UINT,
+    WORD,
+    WPARAM,
+    RGB,
+    MSG,
+)
+
+user32 = windll.user32
+gdi32 = windll.gdi32
+imm32= windll.imm32
 class wkeProxy(Structure):
 
     _fields_ = [('wkeProxyType', c_int),('hostname', c_char *100),('port', c_ushort ),('user', c_char *50),('password',c_char *50)]
@@ -30,6 +70,8 @@ class wkePdfDatas(Structure):
 
     _fields_=[('count',c_int),('sizes',c_size_t),('datas',c_void_p)]
 
+
+
 class Rect(Structure):
 
     _fields_=[('Left',c_int),('Top',c_int),('Right',c_int),('Bottom',c_int)]
@@ -51,3 +93,24 @@ class PAINTSTRUCT(Structure):
 class COMPOSITIONFORM(Structure):
 
     _fields_=[('dwStyle',c_int),('ptCurrentPos',mPos),('rcArea',Rect)]
+
+
+class BITMAPINFOHEADER(Structure):
+    """ 关于DIB的尺寸和颜色格式的信息 """
+
+    _fields_ = [
+        ("biSize", DWORD),
+        ("biWidth", LONG),
+        ("biHeight", LONG),
+        ("biPlanes", WORD),
+        ("biBitCount", WORD),
+        ("biCompression", DWORD),
+        ("biSizeImage", DWORD),
+        ("biXPelsPerMeter", LONG),
+        ("biYPelsPerMeter", LONG),
+        ("biClrUsed", DWORD),
+        ("biClrImportant", DWORD),
+    ]
+
+class BITMAPINFO(Structure):
+    _fields_ = [("bmiHeader", BITMAPINFOHEADER), ("bmiColors", DWORD * 3)]
