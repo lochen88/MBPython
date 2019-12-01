@@ -42,6 +42,7 @@ gdi32 = windll.gdi32
 imm32= windll.imm32
 # kernel32= windll.kernel32
 
+
 class wkeProxy(Structure):
 
     _fields_ = [('type', c_int),('hostname', c_char *100),('port', c_ushort ),('username', c_char *50),('password',c_char *50)]
