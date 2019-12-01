@@ -1,3 +1,2 @@
-ÕâÊÇ²å¼þÄ¿Â¼
-  ±ÈÈçÒªÖ§³ÖFlash²å¼þ, ¾ÍÇë·ÅÈë NPSWF32.dll »òÕß NPSWF64.dll
-
+ï»¿è¿™æ˜¯æ’ä»¶ç›®å½•
+  æ¯”å¦‚è¦æ”¯æŒFlashæ’ä»¶, å°±è¯·æ”¾å…¥ NPSWF32.dll æˆ–è€… NPSWF64.dll
