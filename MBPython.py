@@ -907,11 +907,11 @@ class MBPython3():
 
     def get_content_width(self,webview):
 
-        return self.mb.wkeContentsHeight(webview)
+        return self.mb.wkeContentsWidth(webview)
 
     def get_content_height(self,webview):
 
-        return self.mb.wkeContentsWidth(webview)
+        return self.mb.wkeContentsHeight(webview)
     #获取webview的窗口句柄
     def get_hwnd(self,webview):
         hwnd=self.mb.wkeGetWindowHandle(webview)
