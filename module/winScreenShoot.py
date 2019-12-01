@@ -7,6 +7,7 @@ import zlib
 Pos = collections.namedtuple("Pos", "left, top")
 Size = collections.namedtuple("Size", "width, height")
 
+
 #像素矩阵转pnge二进制
 def to_png(data, size, level=6, file_name=None):
     # type: (bytes, Tuple[int, int], int, Optional[str]) -> Optional[bytes]
@@ -18,7 +19,7 @@ def to_png(data, size, level=6, file_name=None):
     )
 
     magic = pack(">8B", 137, 80, 78, 71, 13, 10, 26, 10)
-    
+
     # Header: size, marker, data, CRC32
     ihdr = [b"", b"IHDR", b"", b""]
     ihdr[2] = pack(">2I5B", width, height, 8, 2, 0, 0, 0)
@@ -131,7 +132,7 @@ class WinShot():
 
         gdi32.BitBlt(hMemDC,cx,cy,width,height,screenDC,x,y,13369376 | 1073741824)#SRCCOPY | CAPTUREBLT
         gdi32.GetDIBits(hMemDC, WinShot.bmp, 0, height, self._data, byref(self._bmp_info),0)#DIB_RGB_COLORS=0
-        
+
         monitor = {"top": x, "left": y, "width": width, "height": height}
         img=ScreenShot(bytearray(self._data), monitor)
 
