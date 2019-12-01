@@ -6,18 +6,17 @@
 @site: https://github.com/lochen88/MBPython3
 @qq: 1191826896
 @description: 基于miniblink封装 普通版不支持多线程调用
+miniblink目前只有32位 请用32位python开发
 """
 
 from module.wkeStruct import *
 from module.winConst import *
+from module.winScreenShoot import WinShot
 import win32gui
-import threading
-import os
 # import requests
-init_path=os.getcwd()
+
+_shot=WinShot()
 m_oldProc=0
-
-
 
 def method(prototype):
     class MethodDescriptor(object):
@@ -34,8 +33,8 @@ def method(prototype):
                         self.func.__get__(obj, type))
                     return ret
     return MethodDescriptor
-    
-class MBPython3(threading.Thread):
+
+class MBPython3():
 
     def __init__(self, *args, **kwargs):
         super(MBPython3,self).__init__(*args, **kwargs)
@@ -43,38 +42,6 @@ class MBPython3(threading.Thread):
         self._height=480
         self._url="http://www.baidu.com"
         self.webview=0
-
-    def run(self):
-
-        self.mb=self.mb_init(f'{init_path}/module/node.dll')
-        webview=self.create_window(0,self._width, self._height)
-        view_hwnd=self.get_hwnd(webview)
-        self.js_bind_func('mouseMsg',arg_count=1,param=view_hwnd)
-
-        #关闭跨域
-        # self.set_csp(webview,False)
-        #开启弹出新窗口
-        # self.set_new_window_enable(webview,True)
-        #开启flash播放
-        # self.set_plugin_path(webview,init_path+'/plugins')
-        #开启开发者工具
-        # self.set_debug_config(webview,'showDevTools',init_path+'/front_end/inspector.html')
-
-        self.move_to_center(webview)
-        self.set_window_title(webview, 'QQ-1191826896-TEST')
-        self.show_window(webview, True)
-
-        # self.set_storage_path(webview,f'{init_path}/LocalStorage')
-        # self.set_cookie_path(webview,init_path)
-        # self.test_proxy(1,'117.70.39.105','4276',webview=webview)
-        self.test_all_callback(webview)
-        
-
-        self.load_url(webview, self._url)
-        # self.mb.wkeLoadFile(webview,b'mouseMsg/mouseMsg.html')
- 
-
-        self.message_loop(webview)
 
     def message_loop(self,webview=None):
 
@@ -86,7 +53,7 @@ class MBPython3(threading.Thread):
             user32.DispatchMessageW(byref(msg))
 
     #-------------------------------------
-    #参数void* param可以传任意类型 
+    #参数void* param可以传任意类型
     def wkeOnCreateView(self,webview,param=0):
         self.mb.wkeOnCreateView(webview,self.onCreateView,param)
     def wkeOnPaintUpdated(self,webview,callbackParam=0):
@@ -249,12 +216,12 @@ class MBPython3(threading.Thread):
 
         msg = c_wchar_p(self.mb.wkeGetStringW(msg)).value
         print('msg',msg)
- 
+
         return True
         #return False
     @method(CFUNCTYPE(c_bool, c_int, c_void_p,c_void_p,c_void_p,c_void_p))
     def onPromptBox(self,webview,param,msg,defaultResult,result):
-  
+
         #提示信息:msg
         msg = c_wchar_p(self.mb.wkeGetStringW(msg)).value
         print('msg:',msg)
@@ -278,7 +245,7 @@ class MBPython3(threading.Thread):
         return
     @method(CFUNCTYPE(c_bool,c_int,c_void_p,c_char_p))
     def onDownload(self,webview,param,url):
-  
+
         url=url.decode()
         print('onDownload:',url)
         #获取下载链接 下载另外写
@@ -374,7 +341,7 @@ class MBPython3(threading.Thread):
 
     @method(CFUNCTYPE(None, c_int, c_void_p,c_char_p,POINTER(wkeMemBuf)))
     def onNetGetFavicon(self,webview,param,url,buf):
-  
+
         url=url.decode()
         print('onNetGetFavicon',url)
 
@@ -419,6 +386,24 @@ class MBPython3(threading.Thread):
         elif val_ls[0]=='min':
             user32.ShowWindow(hwnd,2)
         return 0
+    @method(CFUNCTYPE(c_longlong, c_int, c_void_p))
+    def jsScreenShot(self,es,param):
+
+        if not self._js_shot:return 0
+        self._js_shot=False
+        arg_count=self.mb.jsArgCount(es)
+        val_ls=self.get_js_args_val(es,arg_count)
+        webview=param
+        file_name=val_ls[0]
+        width=val_ls[1]
+        height=val_ls[2]
+        oldwidth=val_ls[3]
+        oldheight=val_ls[4]
+        screenDC=self.get_hdc(webview)
+        _shot.grab(hwnd=0,screenDC=screenDC,width=width,height=height,x=0,y=0,cx=0,cy=0,file_name=file_name)
+        self.set_resize(webview, width=oldwidth, height=oldheight)
+        return 0
+
 
     #运行本地js文件
     def run_js_file(self,webview,file_name):
@@ -589,7 +574,7 @@ class MBPython3(threading.Thread):
         return val
     #-------------cookie\代理操作------------
     def set_storage_path(self,webview,path):
-        #格式如"c:\mb\LocalStorage\" 
+        #格式如"c:\mb\LocalStorage\"
         self.mb.wkeSetLocalStorageFullPath(webview,c_wchar_p(path))
 
     def set_cookie_enable(self,webview,_bool):
@@ -612,7 +597,7 @@ class MBPython3(threading.Thread):
     def visit_all_cookie(self,webview,params=0):
 
         self.mb.wkeVisitAllCookie(webview,params,self.onCookieVisitor)
-    #设置cookie  
+    #设置cookie
     def set_cookie(self,webview,url,cookie):
         #cookie格式PERSONALIZE=123;expires=Monday, 13-Jun-2022 03:04:55 GMT
 
@@ -629,7 +614,7 @@ class MBPython3(threading.Thread):
     def set_cookie_full_path(self,webview,file_name):
         #如c:\mb\mycookie.dat
         self.mb.wkeSetCookieJarFullPath(webview,c_wchar_p(file_name))
-    #清除所有cookie 
+    #清除所有cookie
     def clear_all_cookie(self,webview):
 
         self.mb.wkeClearCookie(webview)
@@ -653,7 +638,7 @@ class MBPython3(threading.Thread):
             password=password.encode('utf8')
         ip=ip.encode('utf8')
         port=int(port)
-        proxy= wkeProxy(wkeProxyType=c_int(proxy_type), hostname=ip, port=c_ushort(port),user=user,password=password)
+        proxy= wkeProxy(type=c_int(proxy_type), hostname=ip, port=c_ushort(port),username=user,password=password)
         self.mb.wkeSetProxy(byref(proxy))
 
         ...
@@ -678,18 +663,18 @@ class MBPython3(threading.Thread):
             password=password.encode('utf8')
         ip=ip.encode('utf8')
         port=int(port)
-        proxy= wkeProxy(wkeProxyType=c_int(proxy_type), hostname=ip, port=c_ushort(port),user=user,password=password)
+        proxy= wkeProxy(type=c_int(proxy_type), hostname=ip, port=c_ushort(port),username=user,password=password)
         self.mb.wkeSetViewProxy(webview,byref(proxy))
     #----------------拦截过滤-----------------
     #保存mb缓存文件
     def mb_save_img(self,file_name,buf,lens):
-        #在onLoadUrlEnd回调里面用 
+        #在onLoadUrlEnd回调里面用
         #file_name D:/test.jpg
         ret=(c_char *lens).from_address(buf)
         with open(file_name,'wb') as f:
             f.write(ret)
 
-    #过滤链接 
+    #过滤链接
     def cancel_request(self,job,url,ident_ls=['.jpg']):
         #在onLoadUrlBegin回调里面用
 
@@ -701,7 +686,7 @@ class MBPython3(threading.Thread):
 
     #修改返回的内容 参数data类型bytes,file_name本地js文件
     def set_response_data(self,job,data=b'',file_name=None):
-        #在onLoadUrlBegin、onLoadUrlEnd回调里面用  
+        #在onLoadUrlBegin、onLoadUrlEnd回调里面用
         #data类型bytes
         #在onLoadUrlBegin用,可以hook某个js替换为本地js文件
         #如http://baidu.com/a.js替换为本地c:\mb\b.js
@@ -862,7 +847,7 @@ class MBPython3(threading.Thread):
     def set_hwnd_offset(self,webview,x,y):
         #设置无窗口模式下的绘制偏移。在某些情况下（主要是离屏模式），绘制的地方不在真窗口的(0, 0)处，就需要手动调用此接口
         self.mb.wkeSetHandleOffset(webview,x,y)
-    
+
     #设置无窗口模式下的webview对应的窗口句柄
     def set_hwnd(self,webview,hwnd):
 
@@ -899,7 +884,7 @@ class MBPython3(threading.Thread):
     def load_url(self,webview,url):
 
         self.mb.wkeLoadURLW(webview,url)
-   
+
     def load_html_file(self,webview,file_name):
 
         self.mb.wkeLoadFile(webview,file_name.encode())
@@ -922,7 +907,7 @@ class MBPython3(threading.Thread):
 
     def get_content_width(self,webview):
 
-        return self.mb.wkeContentsWidth(webview)
+        return self.mb.wkeContentsHeight(webview)
 
     def get_content_height(self,webview):
 
@@ -966,6 +951,25 @@ class MBPython3(threading.Thread):
         hdc=self.mb.wkeGetViewDC(webview)
         return hdc
 
+    #截图(截网页全屏请传webview并绑定jsScreenShot回调)
+    def screen_shot(self,webview=0,hwnd=0,width=300,height=300,x=0,y=0,cx=0,cy=0,file_name=None):
+        if width==0 or height==0:return
+        if webview!=0 and file_name!=None:
+            self._js_shot=True
+            width=self.get_content_width(webview)
+            height=self.get_content_height(webview)
+            oldwidth=self.get_width(webview)
+            oldheight=self.get_height(webview)
+
+            js_code="document.body.style.overflow='hidden';setTimeout(function(){jsScreenShot(%r,%s,%s,%s,%s);document.body.style.overflow='visible';}, 1 * 1000 )"%(file_name,width,height,oldwidth,oldheight)
+
+            self.set_resize(webview, width=width, height=height)
+            self.run_js(webview, js_code)
+            return
+        else:
+            _shot.grab(hwnd=hwnd,width=width,height=height,x=x,y=y,cx=cx,cy=cy,file_name=file_name)
+        return
+
     def fire_mouse_event(self,webview,msg,x,y,flags=0):
         #flags可取值有WKE_CONTROL、WKE_SHIFT、WKE_LBUTTON、WKE_MBUTTON、WKE_RBUTTON，可通过“或”操作并联
         return self.mb.wkeFireMouseEvent(webview,msg,x,y,flags)
@@ -987,7 +991,7 @@ class MBPython3(threading.Thread):
         rect=Rect()
         user32.GetWindowRect(hwnd,byref(rect))
         return rect
- 
+
     @staticmethod
     def get_client_rect(hwnd):
         rect=Rect()
@@ -1275,7 +1279,7 @@ class MBPython3(threading.Thread):
 
         self.run_js(webview,'return test_1("mb")')
 
-     
+
         mainFrame = self.mb.wkeWebFrameGetMainFrame(webview)
         self.run_js_byframe(webview,mainFrame,'window.test_2(1,2)',False)
 
@@ -1296,7 +1300,7 @@ class MBPython3(threading.Thread):
         self.run_js(webview,'return screen.colorDepth')
         self.run_js(webview,'return navigator.userAgent')
     def test_all_callback(self,webview):
-    
+
         # self.wkeOnWindowDestroy(webview, 0)
         # return
         self.wkeOnCreateView(webview, 0)
@@ -1321,11 +1325,42 @@ class MBPython3(threading.Thread):
         self.wkeOnWindowDestroy(webview, 0)
 
 
-if __name__ == '__main__':
 
-    # window = MBPython3()
-    # window.start()
+import os
+init_path=os.getcwd()
+def test_1():
+    window = MBPython3()
+    window.mb=window.mb_init(f'{init_path}/module/node.dll')
+    webview=window.create_window(0,window._width, window._height)
+    view_hwnd=window.get_hwnd(webview)
+    window.js_bind_func('mouseMsg',arg_count=1,param=view_hwnd)
 
+    #关闭跨域
+    # window.set_csp(webview,False)
+    #开启弹出新窗口
+    # window.set_new_window_enable(webview,True)
+    #开启flash播放
+    # window.set_plugin_path(webview,init_path+'/plugins')
+    #开启开发者工具
+    # window.set_debug_config(webview,'showDevTools',init_path+'/front_end/inspector.html')
+
+    window.move_to_center(webview)
+    window.set_window_title(webview, 'QQ-1191826896-TEST')
+    window.show_window(webview, True)
+
+    # window.set_storage_path(webview,f'{init_path}/LocalStorage')
+    # window.set_cookie_path(webview,init_path)
+    # window.test_proxy(1,'117.70.39.105','4276',webview=webview)
+    window.test_all_callback(webview)
+
+
+    window.load_url(webview, window._url)
+    # window.mb.wkeLoadFile(webview,b'mouseMsg/mouseMsg.html')
+
+
+    window.message_loop(webview)
+
+def test_2():
     window = MBPython3()
     window.mb=window.mb_init(f'{init_path}/module/node.dll')
     webview=window.create_window(0,360,480)
@@ -1334,6 +1369,14 @@ if __name__ == '__main__':
     window.wkeOnCreateView(webview,0)
     window.show_window(webview,True)
     window.message_loop()
-    
+
+if __name__ == '__main__':
+
+    test_1()
+
+    # test_2()
+
+
+
 
 

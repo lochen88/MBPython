@@ -23,6 +23,7 @@ from ctypes import (
     CFUNCTYPE,
     WINFUNCTYPE,
     )
+
 from ctypes.wintypes import (
     DWORD,
     HWND,
@@ -39,9 +40,11 @@ from ctypes.wintypes import (
 user32 = windll.user32
 gdi32 = windll.gdi32
 imm32= windll.imm32
+# kernel32= windll.kernel32
+
 class wkeProxy(Structure):
 
-    _fields_ = [('wkeProxyType', c_int),('hostname', c_char *100),('port', c_ushort ),('user', c_char *50),('password',c_char *50)]
+    _fields_ = [('type', c_int),('hostname', c_char *100),('port', c_ushort ),('username', c_char *50),('password',c_char *50)]
 class wkeRect(Structure):
 
     _fields_=[('x',c_int),('y',c_int),('w',c_int),('h',c_int)]
@@ -72,32 +75,37 @@ class wkePdfDatas(Structure):
 
 
 
+
 class Rect(Structure):
 
     _fields_=[('Left',c_int),('Top',c_int),('Right',c_int),('Bottom',c_int)]
+
 class mPos(Structure):
 
     _fields_=[('x',c_int),('y',c_int)]
+
 class mSize(Structure):
 
     _fields_=[('cx',c_int),('cy',c_int)]
+
 class bitMap(Structure):
 
     _fields_=[('bmType',c_int),('bmWidth',c_int),('bmHeight',c_int),('bmWidthBytes',c_int),('bmPlanes',c_short),('bmBitsPixel',c_short),('bmBits',c_int)]
+
 class blendFunction(Structure):
 
     _fields_=[('BlendOp',c_char_p),('BlendFlags',c_char_p),('SourceConstantAlpha',c_char_p),('AlphaFormat',c_char_p)]
+
 class PAINTSTRUCT(Structure):
 
     _fields_=[('hdc',c_int),('fErase',c_int),('rcPaint',Rect),('fRestore',c_int),('fIncUpdate',c_int),('hdc',c_int),('rgbReserved',c_char *32)]
+
 class COMPOSITIONFORM(Structure):
 
     _fields_=[('dwStyle',c_int),('ptCurrentPos',mPos),('rcArea',Rect)]
 
-
 class BITMAPINFOHEADER(Structure):
     """ 关于DIB的尺寸和颜色格式的信息 """
-
     _fields_ = [
         ("biSize", DWORD),
         ("biWidth", LONG),
@@ -113,4 +121,8 @@ class BITMAPINFOHEADER(Structure):
     ]
 
 class BITMAPINFO(Structure):
+
     _fields_ = [("bmiHeader", BITMAPINFOHEADER), ("bmiColors", DWORD * 3)]
+
+
+
