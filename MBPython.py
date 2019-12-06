@@ -460,13 +460,13 @@ class MBPython3():
         #param 要传递的js参数 根据类型转换成相应的js类型
         i=0
         for param in param_ls:
-            if type(param)==str:
+            if isinstance(param,str):
                 param=self.mb.jsStringW(es,c_wchar_p(param))
-            elif type(param)==int:
+            elif isinstance(param,int):
                 param=self.mb.jsInt(param)
-            elif type(param)==float:
+            elif isinstance(param,float):
                 param=self.mb.jsFloat(c_float(param))
-            elif type(param)==bool:
+            elif isinstance(param,bool):
                 param=self.mb.jsBoolean(param)
             args_ls[i]=param
             i+=1
@@ -540,34 +540,34 @@ class MBPython3():
     #绑定函数返回给js的值转换
     def to_js_args_val(self,es,val):
 
-        if type(val)==str:
+        if isinstance(val,str):
             val=self.mb.jsStringW(es,c_wchar_p(val))
-        elif type(val)==int:
+        elif isinstance(val,int):
             val=self.mb.jsInt(val)
-        elif type(val)==float:
+        elif isinstance(val,float):
             val=self.mb.jsFloat(c_float(val))
-        elif type(val)==bool:
+        elif isinstance(val,bool):
             val=self.mb.jsBoolean(val)
-        elif type(val)==list:
+        elif isinstance(val,list):
             lens=len(val)
             tmp_arr=self.mb.jsEmptyArray(es)
             for i in range(lens):
-                if type(val[i])==int:
+                if isinstance(val[i],int):
                     tmp_val=self.mb.jsInt(val[i])
-                elif type(val[i])==str:
+                elif isinstance(val[i],str):
                     tmp_val=self.mb.jsStringW(es,c_wchar_p(val[i]))
-                elif type(val[i])==float:
+                elif isinstance(val[i],float):
                     tmp_val=self.mb.jsFloat(c_float(val[i]))
                 self.mb.jsSetAt(es, c_longlong(tmp_arr), i, c_longlong(tmp_val))
             val=tmp_arr
-        elif type(val)==dict:
+        elif isinstance(val,dict): 
             tmp_obj=self.mb.jsEmptyObject(es)
             for k,v in val.items():
-                if type(v)==int:
+                if isinstance(v,int):
                     v=self.mb.jsInt(v)
-                elif type(v)==str:
+                elif isinstance(v,str):
                     v=self.mb.jsStringW(es,c_wchar_p(v))
-                elif type(v)==float:
+                elif isinstance(v,float):
                     v=self.mb.jsFloat(c_float(v))
                 self.mb.jsSet(es,c_longlong(tmp_obj),k.encode(),c_longlong(v))
             val=tmp_obj
