@@ -97,7 +97,6 @@ class JsRunPy():
     def bind_func(self,func_name,arg_count=0,param=0):
         js_bind_func=getattr(self,func_name)
         func_name=func_name.encode()
-        print('bind_func',func_name,param)
         self.mb.wkeJsBindFunction(func_name,js_bind_func,param,arg_count)   
 
     @method(CFUNCTYPE(c_longlong, _LRESULT, c_void_p))

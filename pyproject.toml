@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "MBPython"
+version = "0.1.0"
+description = "miniblink binding for python"
+authors = ["lochen"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+pywin32 = "^228"
+pyinstaller = "^4.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "douban"
+default = true
+url = "https://pypi.doubanio.com/simple/"

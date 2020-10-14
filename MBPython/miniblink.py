@@ -48,6 +48,7 @@ class MiniBlink():
         mb.wkeGoForward.argtypes=[_LRESULT]
         mb.wkeGoBack.argtypes=[_LRESULT]
         mb.wkeLoadURLW.argtypes=[_LRESULT]
+        mb.wkeLoadHTMLW.argtypes=[_LRESULT]
         mb.wkeLoadFile.argtypes=[_LRESULT]
         mb.wkeReload.argtypes=[_LRESULT]
         mb.wkeStopLoading.argtypes=[_LRESULT]
@@ -186,6 +187,9 @@ class MiniBlink():
         mb.wkeSetCspCheckEnable.argtypes=[_LRESULT]
         mb.wkeSetDebugConfig.argtypes=[_LRESULT]
         mb.wkeSetString.argtypes=[_LRESULT]
+        mb.wkeSetUserAgentW.argtypes=[_LRESULT]
+        mb.wkeGetUserAgent.argtypes=[_LRESULT]
+        mb.wkeGetUserAgent.restype=c_char_p
 
         mb.wkeGetCookieW.argtypes=[_LRESULT]
         mb.wkeGetCookieW.restype=c_wchar_p

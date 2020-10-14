@@ -26,6 +26,11 @@ class Window():
         self.mb.wkeMoveToCenter(webview)
     def wkeRunMessageLoop(self):
         self.mb.wkeRunMessageLoop(0)
+    def wkeSetUserAgentW(self,webview,ua):
+        self.mb.wkeSetUserAgentW(webview,ua)
+    def wkeGetUserAgent(self,webview):
+        ua=self.mb.wkeGetUserAgent(webview)
+        return ua.decode()        
     def wkeSetDragEnable(self,webview,_bool):
    
         self.mb.wkeSetDragEnable(webview,_bool)
@@ -53,7 +58,7 @@ class Window():
        
         self.mb.wkeSetNavigationToNewWindowEnable(webview,_bool)
     def wkeSetWebViewName(self,webview,name):
-        #        self.mb.wkeSetWebViewName(webview,name.encode())
+        self.mb.wkeSetWebViewName(webview,name.encode())
     def wkeSetZoomFactor(self,webview,factor):
  
         self.mb.wkeSetZoomFactor(webview,c_float(factor))
@@ -94,7 +99,6 @@ class Window():
         self.mb.wkeGoBack(webview)
     def wkeGetWindowHandle(self,webview):
      
-        ...
         return self.mb.wkeGetWindowHandle(webview)
 
     def wkeGetViewDC(self,webview):

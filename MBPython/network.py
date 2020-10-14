@@ -9,6 +9,8 @@ class NetWork():
         self.mb=miniblink
     def wkeLoadURLW(self,webview,url):
         self.mb.wkeLoadURLW(webview,url)
+    def wkeLoadHTMLW(self,webview,html):
+        self.mb.wkeLoadHTMLW(webview,html)
     def wkeLoadFile(self,webview,file_path):
         file_path=file_path.encode()
         self.mb.wkeLoadFile(webview,file_path)

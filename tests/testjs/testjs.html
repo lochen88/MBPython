@@ -1,0 +1,214 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MBPython-测试js绑定py函数</title>
+        <link rel="stylesheet" type="text/css" href="css/iview.css">
+        <script type="text/javascript" src="javascript/vue.js"></script>
+        <script type="text/javascript" src="javascript/iview.js"></script>
+        <script type="text/javascript" src="javascript/test.js"></script>
+    </head>
+    <body style="background: none">
+        <script type="text/javascript">
+            window.onload = function () {
+                let ls=document.querySelectorAll('#header div')
+                for (let i=0;i<ls.length;i++){
+                    ls[i].onmousedown=function(e){
+                        let ele=e.target||e.srcElement;
+                        let rect=ele.getBoundingClientRect();
+                        if(rect.width==0 && rect.height==0){
+                            return
+                        }
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                }
+            }     
+            function mouseMsg(val){
+                var ret = window.call_py_func(val)
+                if (val=='menu'){
+                    alert(ret)
+                }
+            }                   
+        </script>
+        <div id="header" onmousedown="mouseMsg('move')">
+            <div class="title" style="-webkit-app-region: drag;color: #FF33FF">MBPython-测试js绑定py函数-后宫裙:198671899</div>
+            <div class="group-control">
+                <button class="btn-close" onclick="mouseMsg('close')" title="关闭窗口"></button>
+    			<button class="btn-max" onclick="mouseMsg('max')" title="最大化"></button>
+    			<button class="btn-min" onclick="mouseMsg('min')" title="最小化"></button>
+            </div>
+            <div class="menu" @mousedown.stop onclick="mouseMsg('menu')"></div>
+        </div>
+        <iframe id='testiframe' src="https://www.baidu.com//" allow="fullscreen 'none'" frameborder="0" style="width:100%;height: 120px;margin:0px;"></iframe>
+        <div class="test-vue"> 
+            <button onclick="call_py_func('loadurl', 666,'我来自 JS',false,[1,2,3,'ok',true],JSON.stringify({'a':'a','b':888.8}))" style='margin-right: 20px;cursor: pointer;'>测试js向py传参</button>
+            <div id="app">
+                <i-button @click="show()" style='margin-right: 20px'>{{message}}</i-button>
+                <i-button @click="getResult()" style='margin-right: 20px'>{{result}}</i-button>
+                <Modal :visible.sync="visible" title="iview弹窗">vue测试</Modal>
+            </div>
+            <script>
+                new Vue({
+                    el: '#app',
+                    data:{
+                        visible: false,
+                        message:'app-测试vue点击',
+                        result:'测试外部引入js'
+                    },
+                    methods: {
+                        show() {
+                            this.visible = true;
+                        },
+                        getResult(){
+                            this.result=testImportJs()
+                        }
+                    }
+                })
+                new Vue({
+                    el: '#app2',
+                    data: {
+                        message: 'app2-测试vue点击'
+                    }
+                })
+            </script>
+            <button onclick="creatVueApp()" style='margin-right: 20px;cursor:pointer'>点击手动创建vue实例</button>
+            <div id='app3'>
+                <div @click="testApp3Click" style="color:red;margin-right: 20px;background-color: white;height: 30px;line-height: 30px;border-radius:4px;cursor: pointer;">{{msg}}</div>
+            </div>
+            <div id='app4'>
+                <div style="color:blue;background-color: white;height: 30px;line-height: 30px;border-radius:4px;cursor: pointer;" @click="testApp4Click()">{{msg}}</div>
+            </div>
+        </div>
+        <img class="mbform-drag" src="images/girl.png" style="-webkit-app-region: drag;border: none;width: 460px;height:460px;clear: both;display: block;margin: auto;;margin-top:20px"/>
+        <div id='appendtext'></div>        
+    </body>
+</html>
+<style type="text/css">
+* {
+    margin: 0;
+    padding: 0;
+}
+button {
+    outline: none;
+    width: 120px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid rgba(176,179,191,0.5);
+    border-radius:4px;
+}
+html,body{  
+    height: 100%;
+} 
+#app{
+    display: flex;
+    display: -webkit-flex;
+}
+.test-vue{
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+#header {
+    width: 100%;
+    height: 55px;
+    background: url(./images/hader.png) no-repeat;
+    background-position :right center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-size: 100% 100%;  
+    background-size: cover;
+    user-select:none;
+    -webkit-user-select:none;     
+}
+.menu{
+    width: 30px;
+    height: 25px;
+    position:absolute;
+    top: 30px;
+    right: 15px;
+    background-image: url(./images/btn-control.png);
+    background-position: -120px -10px;
+}
+.menu:hover {
+    background-position: -120px -40px;
+}
+.menu:active {
+    background-position: -120px -70px;
+}
+.title {
+    clear: left;
+    float: left;
+    font-weight: 400;
+    line-height: 55px;
+    font-size: 16px;
+    padding-left: 20px;
+    color: white;
+}
+
+
+.group-control button {
+    width: 30px;
+    height: 30px;
+    background-blend-mode: multiply;
+    background-image: url(./images/btn-control.png);
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0);
+    display: block;
+    float: right;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.group-control button.btn-close {
+    background-position: 0 0;
+    border-top-right-radius: 5px
+}
+
+.group-control button.btn-close:hover {
+    background-position: 0 -30px;
+}
+
+.group-control button.btn-close:active {
+    background-position: 0 -60px;
+}
+
+.group-control button.btn-max {
+    background-position: -30px 0;
+}
+
+.group-control button.btn-max:hover {
+    background-position: -30px -30px;
+}
+
+.group-control button.btn-max:active {
+    background-position: -30px -60px;
+}
+
+.group-control button.btn-restore {
+    background-position: -60px 0;
+}
+
+.group-control button.btn-restore:hover {
+    background-position: -60px -30px;
+}
+
+.group-control button.btn-restore:active {
+    background-position: -60px -90px;
+}
+
+.group-control button.btn-min {
+    background-position: -90px 0;
+}
+
+.group-control button.btn-min:hover {
+    background-position: -90px -30px;
+}
+
+.group-control button.btn-min:active {
+    background-position: -90px -60px;
+}
+</style>

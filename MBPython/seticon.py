@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-from .winConst import *
-from .myctypes import *
+from .myctypes import user32,kernel32
+from .winConst import WinConst
 from os import path
 
 RelPath = lambda file : path.join(path.dirname(path.abspath(__file__)), file)

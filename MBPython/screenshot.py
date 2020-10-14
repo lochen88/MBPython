@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
-from .myctypes import *
-import win32gui, win32ui, win32con
+from .myctypes import user32
+from .winConst import WinConst
+import win32gui, win32ui
 from struct import pack
 import collections
 import zlib
@@ -90,7 +91,7 @@ def generate_bitBmp(hwnd=0,screenDC=0,left=0,top=0,width=0,height=0,cx=0,cy=0):
     
     saveDC.SelectObject(saveBitMap)
     
-    saveDC.BitBlt((0,0), (width,height), mfcDC, (0, 0), win32con.SRCCOPY)
+    saveDC.BitBlt((0,0), (width,height), mfcDC, (0, 0), WinConst.SRCCOPY)
     
     pixels = saveBitMap.GetBitmapBits(True)
     img=pixelsParse(data=bytearray(pixels), left=left
