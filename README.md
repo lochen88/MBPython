@@ -16,7 +16,8 @@ pip install --user MBPython
 ```
 
 ### How to use
-Must create a new file named config.py like this demo → https://github.com/lochen88/MBPython/blob/master/tests/config.py
+Must create a new file named config.py like this demo → https://github.com/lochen88/MBPython/blob/master/tests/config.py 
+and download the node.dll add to your project.
 
 Create a simple Window
 ```bash
@@ -36,11 +37,11 @@ pyinstall xxx.py --noconsole
 
 ### Examples
 
-See the [tests](https://github.com/lochen88/MBPython/tree/master/tests) files
+See the [tests](https://github.com/lochen88/MBPython/tree/master/tests) folder
 
 ### Documents
 
-See the [documents](https://github.com/lochen88/MBPython/tree/master/documents) files
+See the [documents](https://github.com/lochen88/MBPython/tree/master/documents) folder
 
 ### What about CEF?
 
@@ -52,7 +53,7 @@ In short: I do not like CEF, it is too big, comes with too many dependency resol
     <tr>
         <td width="50%" valign="top">
             <p align="center">
-                <a href="tencent://message/?uin=1191826896&Site=Sambow&Menu=yes">
+                <a href="tencent://message/?uin=1191826896&Site=Sambow&Menu=yes/">
                     <img src="https://s1.ax1x.com/2020/10/15/0onOBV.jpg">
                 </a>
             </p>
@@ -60,7 +61,9 @@ In short: I do not like CEF, it is too big, comes with too many dependency resol
         </td>
         <td width="50%" valign="top">
             <p align="center">
-                <img src="https://s1.ax1x.com/2020/10/15/0onIhQ.jpg">
+                <a href="tencent://message/?uin=1191826896&Site=Sambow&Menu=yes/">
+                    <img src="https://s1.ax1x.com/2020/10/15/0onIhQ.jpg">
+                </a>
             </p>
             If you would like to support general MBPython development efforts by making a donation then please scan to pay by the alipay
         </td>
