@@ -93,7 +93,7 @@ class Window():
     def wkeContentsHeight(self,webview):
        
         return self.mb.wkeContentsHeight(webview)
-    def wkeGoForward(self):
+    def wkeGoForward(self,webview):
         self.mb.wkeGoForward(webview)
     def wkeGoBack(self,webview):
         self.mb.wkeGoBack(webview)

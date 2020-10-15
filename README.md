@@ -24,6 +24,10 @@ pip install --user MBPython
 Must create a new file named config.py like this demo → https://github.com/lochen88/MBPython/blob/master/tests/config.py
 and download the node.dll add to your project.
 
+<p style="color: red">
+    The free version can only be called on the UI thread.
+</p>
+
 Create a simple Window
 ```bash
 from MBPython import miniblink
