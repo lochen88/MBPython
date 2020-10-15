@@ -1,6 +1,11 @@
 # MBPython
+
+Miniblink is a lighter browser widget base on chromium,
+just one file, faster browser kernel of blink to integrate HTML UI in your app.
+
 MBPython is an open source project founded by lochen to provide python bindings for the Miniblink. Examples of embedding Miniblink browser are available for many popular GUI toolkits including: wxPython, PyQt, PySide, Kivy, Panda3D, PyGTK, PyGObject, PyGame/PyOpenGL and PyWin32.
 
+By using C interface, you can create a browser just some line code.
 There are many use cases for MBPython. You can embed a web browser control based on MBPython with great HTML 5 support. You can use it to create a HTML 5 based GUI in an application, this can act as a replacement for standard GUI toolkits like wxWidgets, Qt or GTK. You can render web content off-screen in application that use custom drawing frameworks. You can use it for automated testing of existing applications. You can use it for web scraping or as a web crawler, or other kind of internet bots.
 
 ### Latest release
@@ -29,6 +34,7 @@ webview=window.wkeCreateWebWindow(0,0,0,860,760)
 window.wkeShowWindow(webview)
 window.wkeRunMessageLoop()
 ```
+
 ### PyInstaller
 
 ```bash
@@ -53,17 +59,13 @@ In short: I do not like CEF, it is too big, comes with too many dependency resol
     <tr>
         <td width="50%" valign="top">
             <p align="center">
-                <a href="tencent://message/?uin=1191826896&Site=Sambow&Menu=yes/">
-                    <img src="https://s1.ax1x.com/2020/10/15/0onOBV.jpg">
-                </a>
+                <img src="https://s1.ax1x.com/2020/10/15/0onOBV.jpg">
             </p>
             if you have any questions,you can contact me,and i will try my best to help you
         </td>
         <td width="50%" valign="top">
             <p align="center">
-                <a href="tencent://message/?uin=1191826896&Site=Sambow&Menu=yes/">
-                    <img src="https://s1.ax1x.com/2020/10/15/0onIhQ.jpg">
-                </a>
+                <img src="https://s1.ax1x.com/2020/10/15/0onIhQ.jpg">
             </p>
             If you would like to support general MBPython development efforts by making a donation then please scan to pay by the alipay
         </td>
