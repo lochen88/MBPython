@@ -3,7 +3,7 @@ With MBPython you can embed a web browser control based
 on Chromium in a Python application. You can also use it to
 create a HTML 5 based GUI in an application that can act as
 a replacement for standard GUI toolkits such as wxWidgets,
-Qt or GTK. With this tutorial you will learn CEF Python
+Qt or GTK. With this tutorial you will learn MBPython
 basics. This tutorial will discuss the three featured examples:
 
 [test_mbpython.py](../tests/test_mbpython.py),
