@@ -21,7 +21,7 @@ pip install --user MBPython
 ```
 
 ### How to use
-Must create a new file named config.py like this demo → https://github.com/lochen88/MBPython/blob/master/tests/config.py 
+Must create a new file named config.py like this demo → https://github.com/lochen88/MBPython/blob/master/tests/config.py
 and download the node.dll add to your project.
 
 Create a simple Window
