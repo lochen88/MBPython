@@ -1,14 +1,17 @@
 [tool.poetry]
 name = "MBPython"
-version = "0.1.0"
-description = "miniblink binding for python"
-authors = ["lochen"]
+version = "0.1.1"
+description = "Miniblink binding for python"
+authors = ["lochen <1191826896@qq.com>"]
 license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/lochen88/MBPython"
+repository = "https://github.com/lochen88/MBPython"
 
 [tool.poetry.dependencies]
 python = "^3.6"
 pywin32 = "^228"
-pyinstaller = "^4.0"
+
 
 [tool.poetry.dev-dependencies]
 
