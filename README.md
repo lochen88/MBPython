@@ -16,8 +16,9 @@ pip install --user MBPython
 ```
 
 ### How to use
-Must create a new file named config.py like this demo →→→ https://github.com/lochen88/MBPython/blob/master/tests/config.py
-created
+Must create a new file named config.py like this demo → https://github.com/lochen88/MBPython/blob/master/tests/config.py
+
+Create a simple Window
 ```bash
 from MBPython import miniblink
 wke=miniblink.MiniBlink
@@ -35,11 +36,11 @@ pyinstall xxx.py --noconsole
 
 ### Examples
 
-See the [tests](#https://github.com/lochen88/MBPython/tree/master/tests)
+See the [tests](https://github.com/lochen88/MBPython/tree/master/tests)
 
 ### Documents
 
-See the [documents](#https://github.com/lochen88/MBPython/tree/master/documents)
+See the [documents](https://github.com/lochen88/MBPython/tree/master/documents)
 
 ### What about CEF?
 
