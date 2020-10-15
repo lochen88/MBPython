@@ -49,7 +49,7 @@ pyinstall xxx.py --noconsole
 
 See the [tests](https://github.com/lochen88/MBPython/tree/master/tests) folder
 
-### Documents
+### Tutorial
 
 See the [documents](https://github.com/lochen88/MBPython/tree/master/documents) folder
 

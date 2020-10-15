@@ -63,13 +63,14 @@ def test_js_run_py(**kwargs):
     elif val_ls[0]=='menu':
         return jsrunpy.to_js_args_val(es,'点击菜单')
     elif val_ls[0]=='loadurl':
+        pyrunjs.run_js(webview,'alert("create new window")')
         j_webview=window.wkeCreateWebWindow(0,0,0,360,480)
         network.wkeLoadURLW(j_webview,'https://www.baidu.com/')
-        window.wkeShowWindow(j_webview)        
+        window.wkeShowWindow(j_webview)
     return 0
 def test():
     if mb==0:return
-    global webview,window,jsrunpy,network
+    global webview,window,jsrunpy,network,pyrunjs
     window=wke.window
     callback=wke.callback
     network=wke.network
