@@ -22,7 +22,7 @@ class PyRunJS():
     def run_js_file(self,webview,file_name):
         with open(file_name) as f:
             js_code=f.read()
-            self.run_js(webview,js_code)        
+            return self.run_js(webview,js_code)        
     def run_js_byframe(self,webview,frameId,js_code,isInClosure=True):
         
         js_code=js_code.encode()

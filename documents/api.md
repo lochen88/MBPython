@@ -1,7 +1,6 @@
-# window (object)
+# Api index 
 
-Table of contents:
-* [Methods](#methods)
+* [window(object)-Methods](#methods)
   * [wkeCreateWebWindow](#wkeCreateWebWindow)
   * [wkeShowWindow](#wkeShowWindow)
   * [wkeCreateWebView](#wkeCreateWebView)
@@ -33,7 +32,17 @@ Table of contents:
   * [wkeSetTouchEnabled](#wkeSetTouchEnabled)
   * [simulate_device](#simulate_device)
   * [bind_window](#bind_window)
+* [pyrunjs(object)-Methods](#methods)
+  * [run_js](#run_js)
+  * [run_js_file](#run_js_file)
+  * [run_js_byframe](#run_js_byframe)
+  * [run_js_global](#run_js_global)
+* [proxy(object)-Methods](#methods)
+  * [wkeSetProxy](#wkeSetProxy)
+  * [wkeSetViewProxy](#wkeSetViewProxy)
+
 ## Methods
+
 ### wkeCreateWebWindow
 
 | Parameter | Type | description
@@ -303,3 +312,62 @@ If you want to use flash must ues this method
 | hwnd | int | -- |
 | _bool | bool | -- |
 | __Return__ | int | webview |
+
+### run_js
+
+| Parameter | Type | description
+| --- | --- | --- |
+| webview | int | -- |
+| js_code | string | -- |
+| __Return__ | string | -- |
+
+### run_js_file
+
+| Parameter | Type | description
+| --- | --- | --- |
+| webview | int | -- |
+| file_name | string | -- |
+| __Return__ | string | -- |
+
+### run_js_byframe
+
+| Parameter | Type | description
+| --- | --- | --- |
+| webview | int | -- |
+| frameId | int | -- |
+| js_code | string | -- |
+| isInClosure | bool | -- |
+| __Return__ | string | -- |
+
+### run_js_global
+
+| Parameter | Type | description
+| --- | --- | --- |
+| webview | int | -- |
+| func_name | string | -- |
+| param_ls | list | -- |
+| this_func | string | -- |
+| __Return__ | string | -- |
+
+### wkeSetProxy
+
+| Parameter | Type | description
+| --- | --- | --- |
+| ip | string | -- |
+| port | string | -- |
+| proxy_type | int | 0:WKE_PROXY_NONE,1:WKE_PROXY_HTTP,2:WKE_PROXY_SOCKS4,3:WKE_PROXY_SOCKS4A,4:WKE_PROXY_SOCKS5,5:WKE_PROXY_SOCKS5HOSTNAME |
+| user | string | -- |
+| password | string | -- |
+| __Return__ | None | -- |
+
+### wkeSetViewProxy
+
+| Parameter | Type | description
+| --- | --- | --- |
+| webview | int | -- |
+| ip | string | -- |
+| port | string | -- |
+| proxy_type | int | -- |
+| user | string | -- |
+| password | string | -- |
+| __Return__ | None | -- |
