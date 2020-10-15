@@ -36,11 +36,11 @@ pyinstall xxx.py --noconsole
 
 ### Examples
 
-See the [tests](https://github.com/lochen88/MBPython/tree/master/tests)
+See the [tests](https://github.com/lochen88/MBPython/tree/master/tests) files
 
 ### Documents
 
-See the [documents](https://github.com/lochen88/MBPython/tree/master/documents)
+See the [documents](https://github.com/lochen88/MBPython/tree/master/documents) files
 
 ### What about CEF?
 
