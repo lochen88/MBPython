@@ -27,7 +27,6 @@ class BindWebview():
         self.isZoom=isZoom
         self.mb.wkeSetHandle(self.m_webview,hwnd)
         self.cb.wkeOnPaintUpdated(self.m_webview,hwnd)
-
         if isTransparent:
             self.mb.wkeSetTransparent(self.m_webview,1)
             exStyle=user32.GetWindowLongW(hwnd,WinConst.GWL_EXSTYLE)
@@ -42,6 +41,7 @@ class BindWebview():
     def __paint_func(self,**kwargs):
         webview=kwargs['webview']
         param=kwargs['param']
+
         hdc=kwargs['hdc']
         x=kwargs['x']
         y=kwargs['y']
@@ -83,7 +83,8 @@ class BindWebview():
                       
                         tmp_dc=self.mb.wkeGetViewDC(self.m_webview)
                         gdi32.BitBlt(hdc,destX, destY, width, height,tmp_dc,srcX, srcY,WinConst.SRCCOPY)
-                        user32.EndPaint(hwnd,byref(ps))
+                        self.mb.wkeUnlockViewDC(self.m_webview)
+                    user32.EndPaint(hwnd,byref(ps))
                     return 0
         elif msg==WinConst.WM_ERASEBKGND:
             return 1
@@ -233,7 +234,7 @@ class BindWebview():
         sizeDest.cx =bmp.bmWidth
         sizeDest.cy =bmp.bmHeight
 
-        hdcScreen = user32.GetDC(_LRESULT(hwnd))
+        hdcScreen = self.mb.wkeGetViewDC(self.m_webview)# user32.GetDC(_LRESULT(hwnd))
         blendFunc32bpp=blendFunction()
         blendFunc32bpp.BlendOp = 0   
         blendFunc32bpp.BlendFlags = 0

@@ -64,7 +64,7 @@ def test_js_run_py(**kwargs):
         return jsrunpy.to_js_args_val(es,'点击菜单')
     elif val_ls[0]=='loadurl':
         pyrunjs.run_js(webview,'alert("create new window")')
-        j_webview=window.wkeCreateWebWindow(0,0,0,360,480)
+        j_webview=window.wkeCreateWebWindow(0,0,0,0,360,480)
         network.wkeLoadURLW(j_webview,'https://www.baidu.com/')
         window.wkeShowWindow(j_webview)
     return 0
@@ -86,7 +86,7 @@ def test():
     set_icon(hwnd,icon_path)
     webview=window.bind_window(hwnd=hwnd)
     
-    param='测试传参'.encode('utf8')
+    param='测试传参'
     callback.wkeOnDocumentReady2(webview,param)
     callback.wkeOnWindowDestroy(webview)
     

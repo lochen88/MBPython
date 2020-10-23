@@ -63,13 +63,13 @@ In short: I do not like CEF, it is too big, comes with too many dependency resol
     <tr>
         <td width="50%" valign="top">
             <p align="center">
-                <img src="https://s1.ax1x.com/2020/10/15/0onOBV.jpg">
+                <img src="https://github.com/lochen88/MBPython/blob/master/tests/testjs/images/qq.jpg">
             </p>
             if you have any questions,you can contact me,and i will try my best to help you
         </td>
         <td width="50%" valign="top">
             <p align="center">
-                <img src="https://s1.ax1x.com/2020/10/15/0onIhQ.jpg">
+                <img src="https://github.com/lochen88/MBPython/blob/master/tests/testjs/images/alipay.jpg">
             </p>
             If you would like to support general MBPython development efforts by making a donation then please scan to pay by the alipay
         </td>

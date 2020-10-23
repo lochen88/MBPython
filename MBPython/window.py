@@ -7,9 +7,8 @@ class Window():
         self.width=360
         self.height=480
         self.mb=miniblink
-    def wkeCreateWebWindow(self,_type=0,x=0,y=0,width=360,height=480,hwnd=0):
+    def wkeCreateWebWindow(self,_type=0,hwnd=0,x=0,y=0,width=360,height=480):
         
-        self.mb.wkeCreateWebWindow.restype=c_longlong
         webview =self.mb.wkeCreateWebWindow(
             _type,hwnd, x, y,
             width, height
@@ -61,7 +60,7 @@ class Window():
         self.mb.wkeSetWebViewName(webview,name.encode())
     def wkeSetZoomFactor(self,webview,factor):
  
-        self.mb.wkeSetZoomFactor(webview,c_float(factor))
+        self.mb.wkeSetZoomFactor(webview,factor)
     def wkeSetContextMenuEnabled(self,webview,_bool):
         
         self.mb.wkeSetContextMenuEnabled(webview,_bool)

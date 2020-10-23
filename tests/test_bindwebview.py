@@ -55,7 +55,7 @@ def test_js_run_py(**kwargs):
     elif val_ls[0]=='menu':
         return jsrunpy.to_js_args_val(es,'点击菜单')
     elif val_ls[0]=='loadurl':
-        j_webview=window.wkeCreateWebWindow(0,0,0,360,480)
+        j_webview=window.wkeCreateWebWindow(0,0,0,0,360,480)
         network.wkeLoadURLW(j_webview,'https://www.baidu.com/')
         window.wkeShowWindow(j_webview)
     return 0
@@ -78,7 +78,7 @@ def test():
     hwnd=get_hwnd()
     jsrunpy.bind_func('call_py_func', arg_count=2, param=hwnd)
     webview=bindwebview.bind_webview(hwnd=hwnd,isTransparent=True,isZoom=True)
-    param='测试绑定webview'.encode()
+    param='测试绑定webview'
 
     callback.wkeOnDocumentReady2(webview,param)
 

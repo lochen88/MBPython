@@ -9,8 +9,6 @@ class callBackTest():
     def document_ready_func(self,**kwargs):
         webview=kwargs['webview']
         param=kwargs['param']
-        if param!=None:
-            param=c_char_p(param).value.decode()
         frameId=kwargs['frameId']
         url=self.mb.wkeGetFrameUrl(webview,frameId).decode()
         if 'about:blank' in url:return

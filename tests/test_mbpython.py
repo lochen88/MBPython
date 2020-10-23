@@ -18,7 +18,7 @@ def test():
     callback=wke.callback
     network=wke.network
 
-    webview=window.wkeCreateWebWindow(0,0,0,860,760)
+    webview=window.wkeCreateWebWindow(0,0,0,0,860,760)
     callback.wkeOnWindowDestroy(webview)
 
     network.wkeLoadURLW(webview,'https://www.baidu.com/')
