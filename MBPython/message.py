@@ -1,9 +1,14 @@
 # -*- coding:utf-8 -*-
-
+from ctypes import (
+    windll,
+    c_long,
+    c_ulong,
+    c_ushort
+)
 from .winConst import *
-from .myctypes import *
 from .wkeStruct import mPos
 
+user32 = windll.user32
 class Message():
     def __init__(self,miniblink):
 

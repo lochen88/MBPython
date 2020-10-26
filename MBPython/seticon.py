@@ -1,8 +1,10 @@
 # -*- coding:utf-8 -*-
-from .myctypes import user32,kernel32
+from ctypes import windll
 from .winConst import WinConst
 from os import path
 
+user32 = windll.user32
+kernel32= windll.kernel32
 RelPath = lambda file : path.join(path.dirname(path.abspath(__file__)), file)
 
 def set_icon(hwnd, filename):

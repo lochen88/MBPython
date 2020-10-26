@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from .myctypes import user32
+from ctypes import windll
 from .winConst import WinConst
 import win32gui, win32ui
 from struct import pack
@@ -7,7 +7,7 @@ import collections
 import zlib
 
 
-
+user32=windll.user32
 def to_png(data, size, level=6, file_name=None):
     width, height = size
     line = width * 3

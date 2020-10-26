@@ -24,7 +24,7 @@ def test():
     network.wkeLoadURLW(webview,'https://www.baidu.com/')
 
     window.wkeShowWindow(webview)
-    
+    window.wkeShowWindow(webview)
     window.wkeRunMessageLoop()
 
 if __name__=='__main__':

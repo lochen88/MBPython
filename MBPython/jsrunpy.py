@@ -1,7 +1,13 @@
 # -*- coding:utf-8 -*-
 
+from ctypes import (
+    CFUNCTYPE,
+    c_longlong,
+    c_float,
+    c_void_p,
+    c_wchar_p
+)
 from .winConst import *
-from .myctypes import *
 from .method import method
 from config import _LRESULT
 class JsRunPy():

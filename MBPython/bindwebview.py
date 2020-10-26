@@ -1,12 +1,25 @@
 # -*- coding:utf-8 -*-
+from ctypes import (
+    windll,
+    WINFUNCTYPE,
+    byref
+)
+from ctypes.wintypes import (
+    HWND,
+    LPARAM,
+    UINT,
+    WPARAM,
+    RGB
+)
 from .winConst import *
-from .myctypes import *
 from .wkeStruct import (Rect,mPos,mSize,COMPOSITIONFORM,bitMap,blendFunction,PAINTSTRUCT)
 from .method import method
 from .callback import CallBack
 from win32gui import SetWindowLong
 from config import _LRESULT
 
+gdi32=windll.gdi32
+user32 = windll.user32
 user32.CallWindowProcW.argtypes=[_LRESULT,HWND, UINT,WPARAM,LPARAM]
 user32.CallWindowProcW.restype=_LRESULT
 class BindWebview():

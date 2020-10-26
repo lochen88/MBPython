@@ -93,7 +93,7 @@ def test():
     # network.wkeLoadURLW(webview,'https://www.baidu.com/')
     
 
-    # win32gui.ShowWindow(hwnd,SW_SHOWNORMAL)
+    win32gui.ShowWindow(hwnd,SW_SHOWNORMAL)
     win32gui.ShowWindow(hwnd,SW_SHOWNORMAL)
 
     network.wkeLoadFile(webview,'/testjs/testjs.html')

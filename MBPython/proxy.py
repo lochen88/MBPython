@@ -1,6 +1,9 @@
 # -*- coding:utf-8 -*-
+from ctypes import (
+    c_int,
+    c_ushort
+)
 from .winConst import *
-from .myctypes import *
 from .wkeStruct import wkeProxy
 
 class Proxy():

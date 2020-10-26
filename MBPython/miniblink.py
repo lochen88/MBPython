@@ -1,7 +1,16 @@
 # -*- coding:utf-8 -*-
-
+from ctypes import (
+    c_int,
+    c_longlong,
+    c_float,
+    c_char_p,
+    c_wchar_p,
+    c_bool,
+    c_void_p,
+    POINTER,
+    cdll
+)
 from .winConst import *
-from .myctypes import *
 from .wkeStruct import (wkeProxy,wkePostBodyElements,wkeRect)
 
 from .bindwebview import BindWebview
@@ -30,7 +39,7 @@ class MiniBlink():
 
         mb=cdll.LoadLibrary(node_path)
         mb.wkeInit()
-        mb.wkeCreateWebWindow.argtypes=[_LRESULT]
+   
         mb.wkeCreateWebWindow.restype=_LRESULT
         mb.wkeCreateWebView.restype=_LRESULT        
         mb.wkeSetWindowTitleW.argtypes=[_LRESULT]
@@ -193,6 +202,7 @@ class MiniBlink():
 
         mb.wkeGetCookieW.argtypes=[_LRESULT]
         mb.wkeGetCookieW.restype=c_wchar_p
+        mb.wkeCreateStringW.restype=_LRESULT
         mb.wkeGetStringW.argtypes=[_LRESULT]
         mb.wkeGetStringW.restype=c_wchar_p
 

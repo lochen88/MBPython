@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
+from ctypes import (c_longlong,byref)
 from .winConst import *
-from .myctypes import *
 from .method import method
 
 
