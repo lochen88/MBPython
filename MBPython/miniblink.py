@@ -10,7 +10,6 @@ from ctypes import (
     POINTER,
     cdll
 )
-from .winConst import *
 from .wkeStruct import (wkeProxy,wkePostBodyElements,wkeRect)
 
 from .bindwebview import BindWebview

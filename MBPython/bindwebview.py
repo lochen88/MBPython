@@ -11,7 +11,7 @@ from ctypes.wintypes import (
     WPARAM,
     RGB
 )
-from .winConst import *
+from .winConst import WinConst
 from .wkeStruct import (Rect,mPos,mSize,COMPOSITIONFORM,bitMap,blendFunction,PAINTSTRUCT)
 from .method import method
 from .callback import CallBack

@@ -3,7 +3,6 @@ from ctypes import (
     c_int,
     c_ushort
 )
-from .winConst import *
 from .wkeStruct import wkeProxy
 
 class Proxy():

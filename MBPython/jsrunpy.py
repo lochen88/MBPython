@@ -7,7 +7,6 @@ from ctypes import (
     c_void_p,
     c_wchar_p
 )
-from .winConst import *
 from .method import method
 from config import _LRESULT
 class JsRunPy():

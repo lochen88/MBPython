@@ -17,7 +17,7 @@ from ctypes.wintypes import (
     UINT,
     WPARAM
 )
-from .winConst import *
+from .winConst import WinConst
 from .wkeStruct import (wkeRect,wkeWindowFeatures,wkeMemBuf,mPos)
 from .method import method
 from config import _LRESULT

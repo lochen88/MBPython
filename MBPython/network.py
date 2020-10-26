@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 from ctypes import c_char
-from .winConst import *
 import binascii
 class NetWork():
     def __init__(self,miniblink):     

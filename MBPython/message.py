@@ -5,7 +5,6 @@ from ctypes import (
     c_ulong,
     c_ushort
 )
-from .winConst import *
 from .wkeStruct import mPos
 
 user32 = windll.user32

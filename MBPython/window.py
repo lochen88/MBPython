@@ -5,7 +5,6 @@ from ctypes import (
     windll
 )
 from ctypes.wintypes import MSG
-from .winConst import *
 from .wkeStruct import Rect
 
 user32=windll.user32
