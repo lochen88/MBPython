@@ -1,7 +1,14 @@
 # -*- coding:utf-8 -*-
+from ctypes import (
+    c_float,
+    byref,
+    windll
+)
+from ctypes.wintypes import MSG
 from .winConst import *
-from .myctypes import *
 from .wkeStruct import Rect
+
+user32=windll.user32
 class Window():
     def __init__(self,miniblink):
         self.width=360
