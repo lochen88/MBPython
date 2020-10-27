@@ -7,14 +7,14 @@ father_folder = str(current_folder.parent)
 os.chdir(str(current_folder))
 sys.path.append(father_folder)
 
-from config import icon_path
+from config import icon_path,node_path
 from callbackfunc import callBackTest
 from MBPython import miniblink
 from MBPython import set_icon
 from MBPython.wkeStruct import Rect
 
 wke=miniblink.MiniBlink
-mb=wke.init()
+mb=wke.init(node_path)
 
 import win32gui
 from win32con import *

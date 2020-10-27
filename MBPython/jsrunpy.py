@@ -8,7 +8,8 @@ from ctypes import (
     c_wchar_p
 )
 from .method import method
-from config import _LRESULT
+from . import _LRESULT
+
 class JsRunPy():
     def __init__(self,miniblink):
 

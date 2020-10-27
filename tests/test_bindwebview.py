@@ -9,7 +9,7 @@ sys.path.append(father_folder)
 
 from callbackfunc import callBackTest
 from MBPython import miniblink
-
+from config import node_path
 
 import win32gui
 from win32con import *
@@ -61,7 +61,7 @@ def test_js_run_py(**kwargs):
     return 0
 def test():
     wke=miniblink.MiniBlink
-    mb=wke.init()
+    mb=wke.init(node_path)
     if mb==0:return
     global jsrunpy,window,network
     window=wke.window

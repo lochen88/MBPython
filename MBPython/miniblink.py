@@ -23,10 +23,10 @@ from .pyrunjs import PyRunJS
 
 import platform
 from .window import Window
-from config import node_path,_LRESULT
+from . import _LRESULT
 
 class MiniBlink():
-    def init():
+    def init(node_path):
 
         architecture=platform.architecture()[0]
         if architecture=='64bit' and (not node_path.endswith('x64.dll')):

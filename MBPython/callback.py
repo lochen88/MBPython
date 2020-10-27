@@ -20,7 +20,7 @@ from ctypes.wintypes import (
 from .winConst import WinConst
 from .wkeStruct import (wkeRect,wkeWindowFeatures,wkeMemBuf,mPos)
 from .method import method
-from config import _LRESULT
+from . import _LRESULT
 from win32gui import SetWindowLong
 import json
 

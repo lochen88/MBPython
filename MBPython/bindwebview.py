@@ -16,7 +16,7 @@ from .wkeStruct import (Rect,mPos,mSize,COMPOSITIONFORM,bitMap,blendFunction,PAI
 from .method import method
 from .callback import CallBack
 from win32gui import SetWindowLong
-from config import _LRESULT
+from . import _LRESULT
 
 gdi32=windll.gdi32
 user32 = windll.user32
