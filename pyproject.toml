@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "MBPython"
-version = "0.1.7"
+version = "0.1.8"
 description = "Miniblink binding for python"
 authors = ["lochen <1191826896@qq.com>"]
 license = "MIT"
