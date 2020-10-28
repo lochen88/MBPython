@@ -13,23 +13,15 @@ from ctypes import (
 from ctypes.wintypes import (
     DWORD,
     HWND,
-    LPARAM,
-    UINT,
-    WPARAM
+    UINT
 )
 from .winConst import WinConst
 from .wkeStruct import (wkeRect,wkeWindowFeatures,wkeMemBuf,mPos)
 from .method import method
 from . import _LRESULT
-from win32gui import SetWindowLong
 import json
 
 user32=windll.user32
-user32.CallWindowProcW.argtypes=[_LRESULT,HWND, UINT,WPARAM,LPARAM]
-user32.CallWindowProcW.restype=_LRESULT
-
-
-
 class CallBack():
     def __init__(self,miniblink,width=360,height=480):
         self.mb=miniblink
@@ -100,11 +92,6 @@ class CallBack():
 
 
 
-
-
-    def wkeOnWndProc(self,webview):
-        hwnd=self.mb.wkeGetWindowHandle(webview)
-        self.oldWndProc=SetWindowLong(hwnd,WinConst.GWL_WNDPROC,self._wkeWndProcCallback)
 
 
 
@@ -266,12 +253,6 @@ class CallBack():
     def _timerProc(self,hwnd,msg,nid,dwTime):
         if hasattr(self,'timerProc'):
             self.timerProc(hwnd=hwnd,msg=msg,nid=nid,dwTime=dwTime)
-
-    @method(WINFUNCTYPE(_LRESULT,HWND, UINT,WPARAM,LPARAM))
-    def _wkeWndProcCallback(self,hwnd,msg,wParam,lParam):
-        if hasattr(self,'wkeWndProcCallback'):
-            self.wkeWndProcCallback(hwnd=hwnd,msg=msg,wParam=wParam,lParam=lParam)
-        return user32.CallWindowProcW(self.oldWndProc, hwnd, msg, wParam, lParam)
 
 
 

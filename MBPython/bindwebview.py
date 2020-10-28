@@ -1,27 +1,18 @@
 # -*- coding:utf-8 -*-
 from ctypes import (
     windll,
-    WINFUNCTYPE,
     byref
 )
-from ctypes.wintypes import (
-    HWND,
-    LPARAM,
-    UINT,
-    WPARAM,
-    RGB
-)
+from ctypes.wintypes import RGB
 from .winConst import WinConst
 from .wkeStruct import (Rect,mPos,mSize,COMPOSITIONFORM,bitMap,blendFunction,PAINTSTRUCT)
 from .method import method
 from .callback import CallBack
-from win32gui import SetWindowLong
+from .wndproc import WndProcHook
 from . import _LRESULT
 
 gdi32=windll.gdi32
 user32 = windll.user32
-user32.CallWindowProcW.argtypes=[_LRESULT,HWND, UINT,WPARAM,LPARAM]
-user32.CallWindowProcW.restype=_LRESULT
 class BindWebview():
     def __init__(self,miniblink,webview=0):
         global js
@@ -43,10 +34,16 @@ class BindWebview():
         if isTransparent:
             self.mb.wkeSetTransparent(self.m_webview,1)
             exStyle=user32.GetWindowLongW(hwnd,WinConst.GWL_EXSTYLE)
-            SetWindowLong(hwnd,WinConst.GWL_EXSTYLE,exStyle | WinConst.WS_EX_LAYERED)
+            user32.SetWindowLongW(hwnd,WinConst.GWL_EXSTYLE,exStyle | WinConst.WS_EX_LAYERED)
         else:
             self.mb.wkeSetTransparent(self.m_webview,0)
-        self.__onMyWndProc(hwnd)
+        
+
+        tmp_WndProc=WndProcHook(self.m_webview,hwnd)
+        tmp_WndProc.onWndProcCallback=self.__myWndProcCallBack
+        tmp_WndProc.hook_WndProc()
+
+
         rc=Rect()
         user32.GetClientRect(hwnd,byref(rc))
         self.mb.wkeResize(self.m_webview,rc.Right - rc.Left, rc.Bottom - rc.Top)
@@ -70,9 +67,6 @@ class BindWebview():
             rc=Rect(0,0,x+cx,y+cy)
    
             user32.InvalidateRect(hwnd, byref(rc), True)
-    def __onMyWndProc(self,hwnd):
-        self.oldWndProc=SetWindowLong(hwnd,WinConst.GWL_WNDPROC,self.__myWndProcCallBack)
-    @method(WINFUNCTYPE(_LRESULT,HWND, UINT,WPARAM,LPARAM))
     def __myWndProcCallBack(self,hwnd,msg,wParam,lParam):
         if msg==WinConst.WM_PAINT:
    
@@ -229,7 +223,6 @@ class BindWebview():
         elif msg==WinConst.WM_INPUTLANGCHANGE:
             return user32.DefWindowProcA(hwnd, msg, _LRESULT(wParam), _LRESULT(lParam))
             
-        return user32.CallWindowProcW(self.oldWndProc, hwnd, msg, wParam, lParam)
     def __transparentPaint(self,hwnd,hdc,x,y,cx,cy):
         rectDest=Rect()
         user32.GetClientRect(hwnd,byref(rectDest))

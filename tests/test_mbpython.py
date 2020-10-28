@@ -11,8 +11,9 @@ sys.path.append(father_folder)
 from MBPython import miniblink 
 from config import node_path
 def test():   
-    wke=miniblink.MiniBlink
-    mb=wke.init(node_path)
+    mbpython=miniblink.Miniblink
+    mb=mbpython.init(node_path)
+    wke=mbpython(mb)
     if mb==0:return
     window=wke.window
     callback=wke.callback

@@ -13,8 +13,9 @@ from MBPython import miniblink
 from MBPython import set_icon
 from MBPython.wkeStruct import Rect
 
-wke=miniblink.MiniBlink
-mb=wke.init(node_path)
+mbpython=miniblink.Miniblink
+mb=mbpython.init(node_path)
+wke=mbpython(mb)
 
 import win32gui
 from win32con import *
@@ -61,12 +62,15 @@ def test_js_run_py(**kwargs):
     elif val_ls[0]=='min':
         user32.ShowWindow(hwnd,2)
     elif val_ls[0]=='menu':
-        return jsrunpy.to_js_args_val(es,'点击菜单')
+        return jsrunpy.to_js_args_val(es,'click-menu')
     elif val_ls[0]=='loadurl':
+
         pyrunjs.run_js(webview,'alert("create new window")')
-        j_webview=window.wkeCreateWebWindow(0,0,0,0,360,480)
-        network.wkeLoadURLW(j_webview,'https://www.baidu.com/')
-        window.wkeShowWindow(j_webview)
+        wke2=mbpython(mb)
+        j_webview=wke2.window.wkeCreateWebWindow(0,0,0,0,360,480)
+        wke2.network.wkeLoadURLW(j_webview,'https://www.baidu.com/')
+        wke2.window.wkeShowWindow(j_webview)
+        
     return 0
 def test():
     if mb==0:return

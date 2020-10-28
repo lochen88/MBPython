@@ -20,12 +20,25 @@ from .message import Message
 from .network import NetWork
 from .proxy import Proxy
 from .pyrunjs import PyRunJS
-
-import platform
 from .window import Window
+from .wndproc import WndProcHook
 from . import _LRESULT
+import platform
 
-class MiniBlink():
+
+        
+class Miniblink():
+    def __init__(self,mb):
+        self.bindwebview=BindWebview(mb)
+        self.callback=CallBack(mb)
+        self.cookie=Cookie(mb)
+        self.jsrunpy=JsRunPy(mb)
+        self.message=Message(mb)
+        self.network=NetWork(mb)
+        self.proxy=Proxy(mb)
+        self.pyrunjs=PyRunJS(mb)
+        self.window=Window(mb)
+    @staticmethod    
     def init(node_path):
 
         architecture=platform.architecture()[0]
@@ -204,16 +217,9 @@ class MiniBlink():
         mb.wkeCreateStringW.restype=_LRESULT
         mb.wkeGetStringW.argtypes=[_LRESULT]
         mb.wkeGetStringW.restype=c_wchar_p
-
-        MiniBlink.bindwebview=BindWebview(mb)
-        MiniBlink.callback=CallBack(mb)
-        MiniBlink.cookie=Cookie(mb)
-        MiniBlink.jsrunpy=JsRunPy(mb)
-        MiniBlink.message=Message(mb)
-        MiniBlink.network=NetWork(mb)
-        MiniBlink.proxy=Proxy(mb)
-        MiniBlink.pyrunjs=PyRunJS(mb)
-        MiniBlink.window=Window(mb)    
+ 
         
         return mb
+    def create(mb):
+        return NewMiniblink(mb)
 

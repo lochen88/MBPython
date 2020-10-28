@@ -53,15 +53,16 @@ def test_js_run_py(**kwargs):
     elif val_ls[0]=='min':
         user32.ShowWindow(hwnd,2)
     elif val_ls[0]=='menu':
-        return jsrunpy.to_js_args_val(es,'点击菜单')
+        return jsrunpy.to_js_args_val(es,'click-menu')
     elif val_ls[0]=='loadurl':
         j_webview=window.wkeCreateWebWindow(0,0,0,0,360,480)
         network.wkeLoadURLW(j_webview,'https://www.baidu.com/')
         window.wkeShowWindow(j_webview)
     return 0
 def test():
-    wke=miniblink.MiniBlink
-    mb=wke.init(node_path)
+    mbpython=miniblink.Miniblink
+    mb=mbpython.init(node_path)
+    wke=mbpython(mb)
     if mb==0:return
     global jsrunpy,window,network
     window=wke.window

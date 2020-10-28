@@ -15,7 +15,6 @@ class PyRunJS():
         val=self.mb.jsToStringW(es,val)
         if val=='undefined':
             val=None
-        # print(val,'run_js')
         return val
   
     def run_js_file(self,webview,file_name):
@@ -28,7 +27,6 @@ class PyRunJS():
         val=self.mb.wkeRunJsByFrame(webview,frameId,js_code,isInClosure)
         es = self.mb.wkeGetGlobalExecByFrame(webview, frameId)
         val=self.mb.jsToTempStringW(es, c_longlong(val))
-        # print(val,'run_js_byframe',frameId)
         return val
  
     def run_js_global(self,webview,func_name,param_ls=[],this_func=0):
@@ -39,7 +37,6 @@ class PyRunJS():
             func=self.mb.jsGetGlobal(es,func_name)
         else:
             ...
-
         argCount=len(param_ls)
         args_ls=(c_longlong *argCount)()
 
@@ -56,5 +53,4 @@ class PyRunJS():
 
         callRet=self.mb.jsCall(es,c_longlong(func),c_longlong(this_func),byref(args_ls),c_longlong(argCount))
         val=self.mb.jsToStringW(es,c_longlong(callRet))
-        # print(val,'run_js_global')
         return val        
