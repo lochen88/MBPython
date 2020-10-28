@@ -109,11 +109,11 @@
 | Parameter | Type | description
 | --- | --- | --- |
 | _type | int |0:normal window,1:transparent window,3:embedded window |
+| hwnd | int |embedded other window's handle |
 | x | int | x axis |
 | y | int | y axis |
 | width | int | window's width |
 | height | int | window's height |
-| hwnd | int |embedded other window's handle |
 | __Return__ | int | webview |
 
 ### wkeShowWindow

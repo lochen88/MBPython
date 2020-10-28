@@ -30,10 +30,11 @@ Download the node.dll add to your project.
 Create a simple Window
 ```bash
 from MBPython import miniblink
-wke=miniblink.MiniBlink
-mb=wke.init()
+mbpython=miniblink.Miniblink
+mb=mbpython.init('node.dll')
+wke=mbpython(mb)
 window=wke.window
-webview=window.wkeCreateWebWindow(0,0,0,860,760)
+webview=window.wkeCreateWebWindow(0,0,0,0,860,760)
 window.wkeShowWindow(webview)
 window.wkeRunMessageLoop()
 ```

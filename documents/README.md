@@ -33,11 +33,11 @@ is being embedded. When creating the browser, the "url" parameter is
 specified, which causes the browser to initially navigate to Baidu website. Let's analyze the code from that example:
 
 1. `from MBPython import miniblink` - Import the miniblink module
-2. `wke.init()` - Initialize Miniblink. This function must be called
+2. `wke.init('node.dll')` - Initialize Miniblink. This function must be called
    somewhere in the beginning of your code. It must be called before
    any application window is created. It must be called only once
    during app's lifetime.
-3. `window.wkeCreateWebWindow(0,0,0,860,760)` - Create
+3. `window.wkeCreateWebWindow(0,0,0,0,860,760)` - Create
    a browser, this function returns a Browser object.
 4. `window.wkeRunMessageLoop()` - Run Miniblink message loop. Message loop is a programming construct that waits for and
 dispatches events or messages in a program. All desktop GUI
