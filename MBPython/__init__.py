@@ -8,4 +8,6 @@ if bit == '64bit':
     _LRESULT=c_longlong
 from .seticon import set_icon
 from .screenshot import screen_shot
+from .wndproc import WndProcHook
+from .timer import Timer
 from . import miniblink

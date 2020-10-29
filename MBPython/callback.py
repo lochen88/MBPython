@@ -7,13 +7,7 @@ from ctypes import (
     c_void_p,
     POINTER,
     windll,
-    CFUNCTYPE,
-    WINFUNCTYPE
-)
-from ctypes.wintypes import (
-    DWORD,
-    HWND,
-    UINT
+    CFUNCTYPE
 )
 from .winConst import WinConst
 from .wkeStruct import (wkeRect,wkeWindowFeatures,wkeMemBuf,mPos)
@@ -233,7 +227,8 @@ class CallBack():
     def _wkeLoadingFinishCallback(self,webview,param,url,result,failedReason):
         if hasattr(self,'wkeLoadingFinishCallback'):
             url=self.mb.wkeGetStringW(url)
-            failedReason=self.mb.wkeGetStringW(failedReason)
+            if result==1:
+                failedReason=self.mb.wkeGetStringW(failedReason)
             param=self.get_param_value(param)
             self.wkeLoadingFinishCallback(webview=webview, param=param,url=url,result=result,failedReason=failedReason)
     @method(CFUNCTYPE(None, _LRESULT, c_void_p,c_char_p,POINTER(wkeMemBuf)))
@@ -246,13 +241,6 @@ class CallBack():
 
 
 
-
-
-
-    @method(WINFUNCTYPE(None,HWND, UINT,UINT,DWORD))
-    def _timerProc(self,hwnd,msg,nid,dwTime):
-        if hasattr(self,'timerProc'):
-            self.timerProc(hwnd=hwnd,msg=msg,nid=nid,dwTime=dwTime)
 
 
 

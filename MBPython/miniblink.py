@@ -21,7 +21,6 @@ from .network import NetWork
 from .proxy import Proxy
 from .pyrunjs import PyRunJS
 from .window import Window
-from .wndproc import WndProcHook
 from . import _LRESULT
 import platform
 
