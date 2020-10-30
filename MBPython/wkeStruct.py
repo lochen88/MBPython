@@ -15,6 +15,7 @@ from ctypes import (
     )
 
 from ctypes.wintypes import (
+    LPARAM,
     DWORD,
     LONG,
     WORD,
@@ -106,7 +107,10 @@ class BITMAPINFO(Structure):
 
     _fields_ = [("bmiHeader", BITMAPINFOHEADER), ("bmiColors", DWORD * 3)]
 
+class COPYDATASTRUCT(Structure):
+    _fields_ = [('dwData', LPARAM),('cbData', DWORD),('lpData', c_char_p)]
 
+    
 from . import _LRESULT
 class PAINTSTRUCT(Structure):
     _fields_=[('hdc',_LRESULT),('fErase',c_int),('rcPaint',Rect),('fRestore',c_int),('fIncUpdate',c_int),('rgbReserved',c_char *32)]

@@ -39,7 +39,7 @@ class BindWebview():
             self.mb.wkeSetTransparent(self.m_webview,0)
         
 
-        tmp_WndProc=WndProcHook(self.m_webview,hwnd)
+        tmp_WndProc=WndProcHook(hwnd,self.m_webview)
         tmp_WndProc.onWndProcCallback=self.__myWndProcCallBack
         tmp_WndProc.hook_WndProc()
 
