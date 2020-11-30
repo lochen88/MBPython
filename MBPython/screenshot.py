@@ -1,10 +1,14 @@
 # -*- coding:utf-8 -*-
-from ctypes import windll
+from ctypes import windll,create_string_buffer,byref,c_int,c_void_p,c_longlong
+import platform
 from .winConst import WinConst
-import win32gui, win32ui
+import win32ui
 from struct import pack
 import collections
 import zlib
+
+
+_LRESULT = c_longlong if platform.architecture()[0]=='64bit' else c_int
 
 
 user32=windll.user32
@@ -109,16 +113,20 @@ def whole_screenshot(mb,webview,file_name):
 
     left=0
     top=0
+    mb.wkeGetContentWidth.argtypes = [_LRESULT]
+    mb.wkeGetContentHeight.argtypes = [_LRESULT]
     width=mb.wkeGetContentWidth(webview)
     height=mb.wkeGetContentHeight(webview)
     pixels=create_string_buffer(width*height*4)
     mb.wkeResize(webview,width,height)
     mb.wkeUpdate()
+    mb.wkePaint.argtypes = [_LRESULT,c_void_p,c_int]
     mb.wkePaint(webview,byref(pixels),0)
     img=pixelsParse(data=bytearray(pixels), left=left
         ,top=top,width=width,height=height)
     to_png(img.rgb, img.size, level=6, file_name=file_name)
     pixels=None
     img=None
-    return True        
-
+    return True
+    
+            
